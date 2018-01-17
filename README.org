@@ -23,3 +23,17 @@ Additionally, you can enable the auto sync feature, which will automatically
 sync after you save any dotfile that is in the currently active dfm profile. To
 enable simply add `(setq dfm-sync-dotfiles-on-save t)` to your emacs init file.
 (Commonly: `~/.emacs`)
+
+** License
+
+#+BEGIN_SRC text
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+#+END_SRC
