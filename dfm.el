@@ -5,9 +5,9 @@
 ;; Author: Mathew Robinson <chasinglogic@gmail.com>
 ;; Version: 1.0
 ;; Keywords: cli, dotfiles, dfm
-;; URL: https:--github.com-chasinglogic-dfm.el
+;; URL: https://github.com/chasinglogic/dfm.el
 
-;; This program is free software; you can redistribute it and-or modify
+;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
@@ -18,12 +18,12 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http:--www.gnu.org-licenses->.
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 
 ;; dfm.el is a wrapper script around the DFM (DotFile Manager) tool that can be
-;; found here: https:--github.com-chasinglogic-dfm. It provides commands for
+;; found here: https://github.com/chasinglogic/dfm. It provides commands for
 ;; running dfm as well as adding hooks to automatically sync your dotfiles on
 ;; save.
 
@@ -78,17 +78,27 @@ the current dfm profile is saved.")
   (interactive)
   (dfm-add-file (buffer-file-name)))
 
+(defun dfm--current-profile-path ()
+  (s-append "/"
+            (s-chomp (shell-command-to-string "dfm where"))))
+
 (defun dfm-go-to-current-profile ()
   (interactive)
-  (let ((profile-dir
-         (s-append "/"
-                   (s-chomp (shell-command-to-string "dfm where")))))
+  (let ((profile-dir (dfm--current-profile-path)))
     (dired profile-dir)))
 
 (defun dfm-remove-profile (profile)
   (interactive
    (list (completing-read "Which profile to remove: " (dfm--get-profiles))))
   (dfm--command "remove" profile))
+
+
+(defun dfm--save-if-dotfile ()
+  (when (and dfm-sync-dotfiles-on-save
+             (s-contains? (dfm--current-profile-path) (buffer-file-name)))
+    (dfm-sync)))
+
+(add-hook 'after-save-hook 'dfm--save-if-dotfile)
 
 (provide 'dfm)
 ;;; dfm.el ends here
