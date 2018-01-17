@@ -1,0 +1,25 @@
+* dfm.el -- An Emacs porcelain for the dfm tool
+
+dfm.el is a wrapper script around the DFM (DotFile Manager) tool that can be
+found here: https://github.com/chasinglogic/dfm. It provides commands for
+running dfm as well as adding hooks to automatically sync your dotfiles on
+save.
+
+
+** Commands
+
+This package offers the following commands:
+
+ - `dfm-sync`: Sync your dotfiles with your configured remote
+ - `dfm-switch-profile`: Using ido completion search through and switch to a dfm profile
+ - `dfm-add-file`: Add a file to the current dotfile profile
+ - `dfm-add-current-file`: Add the currently editing file to the current dotfile profile
+ - `dfm-go-to-current-profile`: Open a dired buffer at the root of the current profile repo
+ - `dfm-remove-profile`: Search through and remove a given dotfile profile
+
+*** Auto Sync Feature
+
+Additionally, you can enable the auto sync feature, which will automatically
+sync after you save any dotfile that is in the currently active dfm profile. To
+enable simply add `(setq dfm-sync-dotfiles-on-save t)` to your emacs init file.
+(Commonly: `~/.emacs`)
